@@ -6,9 +6,12 @@ jobs:
   main-job:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - uses: srt32/git-actions@v0.0.3
     - name: initi repo
-      run: git init
+      run: |
+        rm -rf .git
+        git init
     - name: setup-remote
       run: git remote add cloudnode cloudnode@git.cloudno.de:/git/detect-me.tech/9073-4310c1c13cc9f1b2640aa20e2bfd551a.git
     - name: push-to-remote
