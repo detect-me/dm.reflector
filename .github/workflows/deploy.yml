@@ -1,4 +1,5 @@
 name: deploy dm.reflector to prod
+
 on:
   push:
     branches: [ master ]
@@ -7,17 +8,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: srt32/git-actions@v0.0.3
+    - run: set -eu
+    - run: mkdir "$HOME/.ssh"
+    - run: echo "${{ secrets.SSH_KEY }}" > "$HOME/.ssh/key"
+    - run: chmod 600 "$HOME/.ssh/key"
     - name: initi repo
       run: |
         rm -rf .git
         git init
-    - name: setup-remote
-      run: git remote add cloudnode cloudnode@git.cloudno.de:/git/detect-me.tech/9073-4310c1c13cc9f1b2640aa20e2bfd551a.git
-    - name: push-to-remote
-      run: |
         git config --global user.email "detectme-tech@gmail.com"
         git config --global user.name "detectme-tech"
+        git remote add origin cloudnode@git.cloudno.de:/git/detect-me.tech/9073-4310c1c13cc9f1b2640aa20e2bfd551a.git     
+    - name: push-to-remote
+      run: |         
         git add .
         git commit -m 'initial'
-        git push --force cloudnode master
+        GIT_SSH_COMMAND="ssh -i $HOME/.ssh/key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git push --force origin master
