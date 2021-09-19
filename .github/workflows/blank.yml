@@ -1,0 +1,20 @@
+name: deploy dm.reflector to prod
+on:
+  push:
+    branches: [ master ]
+jobs:
+  main-job:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: srt32/git-actions@v0.0.3
+    - name: initi repo
+      run: git init
+    - name: setup-remote
+      run: git remote add cloudnode cloudnode@git.cloudno.de:/git/detect-me.tech/9073-4310c1c13cc9f1b2640aa20e2bfd551a.git
+    - name: push-to-remote
+      run: |
+        git config --global user.email "detectme-tech@gmail.com"
+        git config --global user.name "detectme-tech"
+        git add .
+        git commit -m 'initial'
+        git push --force cloudnode master
