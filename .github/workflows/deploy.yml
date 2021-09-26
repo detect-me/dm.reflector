@@ -34,4 +34,5 @@ jobs:
       run: |
         git add app.js dist
         git commit -m  "released $GITHUB_RUN_NUMBER version"
+        GIT_SSH_COMMAND="ssh -i $HOME/.ssh/key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git push --set-upstream origin master
         GIT_SSH_COMMAND="ssh -i $HOME/.ssh/key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git push --force
