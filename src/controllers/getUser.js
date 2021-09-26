@@ -1,7 +1,5 @@
 import botCheckers from '../services/botCheckers';
 import tracker from '../services/tracker';
-import saveUserToCookie from '../services/saveUserToCookie';
-import readUserFromCookie from '../services/readUserFromCookie';
 
 import { abortRequest, isBot } from '../helpers';
 import { handleIsNotBot } from '../handlers';
@@ -14,4 +12,4 @@ const getUser = (req, res) => {
   }
 };
 
-export default [readUserFromCookie, botCheckers, tracker, saveUserToCookie, getUser];
+export default [botCheckers, tracker, getUser];

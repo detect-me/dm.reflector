@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import cookieParser from 'cookie-parser';
 
 import router from './router';
 import { auth } from './middlewares';
@@ -11,7 +10,6 @@ const PORT = '17091';
 const app = express();
 
 app.use(cors({ origin: true, credentials: true, maxAge: true }));
-app.use(cookieParser());
 app.use(auth);
 app.use(router);
 app.use(handleNotFound);
