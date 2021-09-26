@@ -8,8 +8,6 @@ const saveUserToCookie = (req, res, next) => {
     isBot: isBot(req),
   };
 
-  console.log(req.headers);
-
   res.cookie(
     'DM_USER',
     encrypt(
@@ -18,7 +16,7 @@ const saveUserToCookie = (req, res, next) => {
       ENCRYPT_IV_KEY,
     ),
     {
-      domain: req.get('X-Forwarded-Host'),
+      domain: req.get('origin'),
       httpOnly: true,
       maxAge: 86400,
     },
