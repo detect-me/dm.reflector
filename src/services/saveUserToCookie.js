@@ -8,6 +8,8 @@ const saveUserToCookie = (req, res, next) => {
     isBot: isBot(req),
   };
 
+  console.log(req.headers);
+
   res.cookie(
     'DM_USER',
     encrypt(
