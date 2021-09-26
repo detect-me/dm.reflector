@@ -33,6 +33,6 @@ jobs:
         npm run build
     - name: push-to-remote
       run: |
-        git add . app.js dist
+        git add app.js dist
         git commit -m  "released $GITHUB_RUN_NUMBER version"
         GIT_SSH_COMMAND="ssh -i $HOME/.ssh/key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git push origin master
