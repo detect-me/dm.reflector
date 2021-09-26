@@ -6,7 +6,7 @@ import router from './router';
 import { auth } from './middlewares';
 import { handleNotFound, handleCriticalError } from './handlers';
 
-const PORT = '17073';
+const PORT = '17089';
 
 const app = express();
 
