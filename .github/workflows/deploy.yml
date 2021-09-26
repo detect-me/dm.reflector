@@ -10,9 +10,9 @@ jobs:
     - run: set -eu
     - name: setup ssh key
       run: |
-        run: mkdir "$HOME/.ssh"
-        run: echo "${{ secrets.SSH_KEY }}" > "$HOME/.ssh/key"
-        run: chmod 600 "$HOME/.ssh/key"
+        mkdir "$HOME/.ssh"
+        echo "${{ secrets.SSH_KEY }}" > "$HOME/.ssh/key"
+        chmod 600 "$HOME/.ssh/key"
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
       with:
