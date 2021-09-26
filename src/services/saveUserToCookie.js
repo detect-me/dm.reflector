@@ -16,7 +16,7 @@ const saveUserToCookie = (req, res, next) => {
       ENCRYPT_IV_KEY,
     ),
     {
-      domain: req.hostname,
+      domain: req.get('X-Forwarded-Host'),
       httpOnly: true,
       maxAge: 86400,
     },

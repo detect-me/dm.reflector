@@ -24,8 +24,6 @@ const checkResolution = (req, res, next) => {
 const checkInternetServiceProvider = (req, res, next) => {
   const ip = req.get('x-forwarded-for') || req.connection.remoteAddress || req.ip;
 
-  console.log(req);
-
   if (IS_DEV) {
     req.locals.ipEntity = { ip };
     req.locals.isFacebookProvider = false;
