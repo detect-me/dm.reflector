@@ -14,11 +14,6 @@ app.use(cors({ origin: true, credentials: true, maxAge: true }));
 app.use(cookieParser());
 app.use(auth);
 app.use(router);
-
-app.get('/api/user', () => {
-  throw new Error('lol');
-});
-
 app.use(handleNotFound);
 app.use(handleCriticalError);
 
