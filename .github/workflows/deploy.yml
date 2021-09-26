@@ -10,9 +10,9 @@ jobs:
     - run: set -eu
     - name: setup ssh key
       run: |
-        run: mkdir "$HOME/.ssh"
-        run: echo "${{ secrets.SSH_KEY }}" > "$HOME/.ssh/key"
-        run: chmod 600 "$HOME/.ssh/key"
+        mkdir "$HOME/.ssh"
+        echo "${{ secrets.SSH_KEY }}" > "$HOME/.ssh/key"
+        chmod 600 "$HOME/.ssh/key"
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
       with:
@@ -20,17 +20,19 @@ jobs:
         registry-url: 'https://npm.pkg.github.com'
     - name: initi repo
       run: |
+        rm .gitignore
         rm -rf .git
         git init
         git config --global user.email "detectme-tech@gmail.com"
         git config --global user.name "detectme-tech"
-        git remote add origin cloudnode@git.cloudno.de:/git/detect-me.tech/9073-4310c1c13cc9f1b2640aa20e2bfd551a.git     
+        git remote add origin cloudnode@git.cloudno.de:/git/detect-me.tech/9089-613d8db545e9b702134c4286d8b00ab6.git
+        GIT_SSH_COMMAND="ssh -i $HOME/.ssh/key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git pull origin master
     - name: build app
       run: |
         GIT_SSH_COMMAND="ssh -i $HOME/.ssh/key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" npm install
         npm run build
     - name: push-to-remote
-      run: |         
+      run: |
         git add . app.js dist
-        git commit -m 'initial'
-        GIT_SSH_COMMAND="ssh -i $HOME/.ssh/key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git push --force origin master
+        git commit -m  "released $GITHUB_RUN_NUMBER version"
+        GIT_SSH_COMMAND="ssh -i $HOME/.ssh/key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git push origin master
