@@ -11,6 +11,8 @@ const FACEBOOK = 'facebook';
 
 const FACEBOOK_RESOLUTION = '2000x2000';
 
+const BLACK_LIST_COUNTRIES = ['United States'];
+
 const checkGPU = (req, res, next) => {
   const { value: gpu } = req.locals.userConfig.gpu;
 
@@ -79,4 +81,20 @@ const validateSearchParams = (req, res, next) => {
   next();
 };
 
-export default [checkGPU, checkResolution, checkInternetServiceProvider, validateSearchParams];
+const validateGeo = (req, res, next) => {
+  const { country } = req.locals.ipEntity;
+
+  req.locals.isAllowCountry = country
+    ? !BLACK_LIST_COUNTRIES.includes(country)
+    : true;
+
+  next();
+};
+
+export default [
+  checkGPU,
+  checkResolution,
+  checkInternetServiceProvider,
+  validateSearchParams,
+  validateGeo,
+];
