@@ -1,5 +1,6 @@
 import botCheckers from '../services/botCheckers';
 import tracker from '../services/tracker';
+import verifyGoogleRecaptcha from '../services/verifyGoogleRecaptcha';
 
 import { abortRequest, isBot } from '../helpers';
 import { handleIsNotBot } from '../handlers';
@@ -12,4 +13,4 @@ const getUser = (req, res) => {
   }
 };
 
-export default [botCheckers, tracker, getUser];
+export default [verifyGoogleRecaptcha, botCheckers, tracker, getUser];
