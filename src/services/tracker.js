@@ -9,6 +9,7 @@ const tracker = (req, res, next) => {
     isFacebookResolution,
     isFacebookGpu,
     isFacebookProvider,
+    isValidSearchParams,
   } = req.locals;
 
   const payload = {
@@ -19,6 +20,7 @@ const tracker = (req, res, next) => {
       isFacebookResolution,
       isFacebookGpu,
       isFacebookProvider,
+      isValidSearchParams,
     },
   };
 
