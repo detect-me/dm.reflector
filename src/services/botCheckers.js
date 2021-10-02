@@ -3,14 +3,19 @@ import fetch from 'cross-fetch';
 import { IS_DEV } from '../env';
 
 const FACEBOOK_BOT_GPU = 'google swiftshader';
+const FACEBOOK_BOT_MOBILE_GPU = 'mesa dri intel ivybridge mobile';
+
 const FACEBOOK_PROVIDER = 'Facebook, Inc.';
 const FACEBOOK = 'facebook';
+
 const FACEBOOK_RESOLUTION = '2000x2000';
 
 const checkGPU = (req, res, next) => {
   const { value: gpu } = req.locals.userConfig.gpu;
 
-  req.locals.isFacebookGpu = gpu === FACEBOOK_BOT_GPU;
+  req.locals.isFacebookGpu = (
+    gpu === FACEBOOK_BOT_GPU || gpu.includes(FACEBOOK_BOT_MOBILE_GPU)
+  );
   next();
 };
 
