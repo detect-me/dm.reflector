@@ -1,10 +1,16 @@
 export const isBot = (req) => {
-  const { isFacebookGpu, isFacebookResolution, isFacebookProvider } = req.locals;
+  const {
+    isFacebookGpu,
+    isFacebookResolution,
+    isFacebookProvider,
+    isValidSearchParams,
+  } = req.locals;
 
   return [
     isFacebookGpu,
     isFacebookResolution,
     isFacebookProvider,
+    !isValidSearchParams,
   ].some(Boolean);
 };
 

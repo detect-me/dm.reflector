@@ -9,10 +9,14 @@ export const handleNotFound = (_, res) => res
   .send('Not Found');
 
 // eslint-disable-next-line no-unused-vars
-export const handleCriticalError = (err, req, res, next) => res
-  .set({ 'Content-Type': 'text/plain' })
-  .status(500)
-  .send('Internal Server Error');
+export const handleCriticalError = (err, req, res, next) => {
+  console.log(err.message);
+
+  return res
+    .set({ 'Content-Type': 'text/plain' })
+    .status(500)
+    .send('Internal Server Error');
+};
 
 export const handleIsNotBot = (req, res) => {
   const app = renderApp(req.locals.appConfig, req.locals.userConfig);

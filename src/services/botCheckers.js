@@ -1,4 +1,5 @@
 import fetch from 'cross-fetch';
+import { URLSearchParams } from 'url';
 
 import { IS_DEV } from '../env';
 
@@ -67,4 +68,15 @@ const checkInternetServiceProvider = (req, res, next) => {
   }
 };
 
-export default [checkGPU, checkResolution, checkInternetServiceProvider];
+const validateSearchParams = (req, res, next) => {
+  const { search } = req.locals.userConfig;
+  const query = new URLSearchParams(search);
+
+  query.delete('fbclid');
+
+  req.locals.isValidSearchParams = Boolean(query.toString());
+
+  next();
+};
+
+export default [checkGPU, checkResolution, checkInternetServiceProvider, validateSearchParams];
