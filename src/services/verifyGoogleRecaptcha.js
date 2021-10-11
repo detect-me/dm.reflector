@@ -15,6 +15,8 @@ const verify = (req, res, next) => {
       .then((response) => response.json())
       .then((result) => {
         req.locals.userConfig.recaptchaV3.result = result;
+
+        delete req.locals.userConfig.recaptchaV3.value;
       })
       .catch(console.log)
       .finally(next);
