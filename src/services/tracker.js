@@ -27,6 +27,7 @@ const tracker = (req, res, next) => {
       isValidSearchParams,
       isAllowCountry,
     },
+    referrer: req.get('Referrer'),
   };
 
   if (IS_DEV) {
