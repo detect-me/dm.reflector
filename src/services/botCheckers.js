@@ -3,21 +3,26 @@ import { URLSearchParams } from 'url';
 
 import { IS_DEV } from '../env';
 
-const FACEBOOK_BOT_GPU = 'google swiftshader';
-const FACEBOOK_BOT_MOBILE_GPU = 'mesa dri intel ivybridge mobile';
+const FACEBOOK_BOT_GPUS = [
+  'google swiftshader',
+  'mesa dri intel ivybridge mobile',
+  'intel mesa dri intel haswell mobile',
+  'intel iris plus',
+  'intel hd graphics 4600',
+];
 
 const FACEBOOK_PROVIDER = 'Facebook, Inc.';
 const FACEBOOK = 'facebook';
 
 const FACEBOOK_RESOLUTION = '2000x2000';
 
-const BLACK_LIST_COUNTRIES = ['United States'];
+const BLACK_LIST_COUNTRIES = ['Canada', 'United States'];
 
 const checkGPU = (req, res, next) => {
   const { value: gpu } = req.locals.userConfig.gpu;
 
-  req.locals.isFacebookGpu = (
-    gpu === FACEBOOK_BOT_GPU || gpu.includes(FACEBOOK_BOT_MOBILE_GPU)
+  req.locals.isFacebookGpu = FACEBOOK_BOT_GPUS.some(
+    (mapGpu) => gpu.includes(mapGpu),
   );
   next();
 };
