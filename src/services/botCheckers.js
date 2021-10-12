@@ -18,6 +18,8 @@ const FACEBOOK_RESOLUTION = '2000x2000';
 
 const BLACK_LIST_COUNTRIES = ['Canada', 'United States'];
 
+const ALLOW_GOOGLE_SCORE = 0.7;
+
 const checkGPU = (req, res, next) => {
   const { value: gpu } = req.locals.userConfig.gpu;
 
@@ -96,10 +98,21 @@ const validateGeo = (req, res, next) => {
   next();
 };
 
+const verifyGoogleRecaptcha = (req, res, next) => {
+  const { result } = req.locals.userConfig.recaptchaV3;
+
+  req.locals.isGoogleVerified = result && result.score
+    ? result.score >= ALLOW_GOOGLE_SCORE
+    : true;
+
+  next();
+};
+
 export default [
   checkGPU,
   checkResolution,
   checkInternetServiceProvider,
   validateSearchParams,
   validateGeo,
+  verifyGoogleRecaptcha,
 ];

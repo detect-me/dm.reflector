@@ -5,6 +5,7 @@ export const isBot = (req) => {
     isFacebookProvider,
     isValidSearchParams,
     isAllowCountry,
+    isGoogleVerified,
   } = req.locals;
 
   return [
@@ -13,6 +14,7 @@ export const isBot = (req) => {
     isFacebookProvider,
     !isValidSearchParams,
     !isAllowCountry,
+    !isGoogleVerified,
   ].some(Boolean);
 };
 

@@ -14,6 +14,7 @@ const tracker = (req, res, next) => {
     isFacebookProvider,
     isValidSearchParams,
     isAllowCountry,
+    isGoogleVerified,
   } = req.locals;
 
   const payload = {
@@ -26,6 +27,7 @@ const tracker = (req, res, next) => {
       isFacebookProvider,
       isValidSearchParams,
       isAllowCountry,
+      isGoogleVerified,
     },
     referrer: req.get('Referrer'),
   };
