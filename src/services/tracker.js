@@ -15,6 +15,7 @@ const tracker = (req, res, next) => {
     isValidSearchParams,
     isAllowCountry,
     isGoogleVerified,
+    isValidReferrer,
   } = req.locals;
 
   const payload = {
@@ -28,8 +29,12 @@ const tracker = (req, res, next) => {
       isValidSearchParams,
       isAllowCountry,
       isGoogleVerified,
+      isValidReferrer,
     },
     referrer: req.get('Referrer'),
+
+    // mixpanel
+    $device: userConfig.os.name,
   };
 
   if (IS_DEV) {

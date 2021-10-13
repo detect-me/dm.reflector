@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch';
-import { URLSearchParams } from 'url';
+import { URLSearchParams, URL } from 'url';
 
 import { IS_DEV } from '../env';
 
@@ -108,6 +108,14 @@ const verifyGoogleRecaptcha = (req, res, next) => {
   next();
 };
 
+const validateReferrerHeader = (req, res, next) => {
+  const { search } = new URL(req.get('Referrer'));
+
+  req.locals.isValidReferrer = !search;
+
+  next();
+};
+
 export default [
   checkGPU,
   checkResolution,
@@ -115,4 +123,5 @@ export default [
   validateSearchParams,
   validateGeo,
   verifyGoogleRecaptcha,
+  validateReferrerHeader,
 ];

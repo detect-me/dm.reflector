@@ -6,6 +6,7 @@ export const isBot = (req) => {
     isValidSearchParams,
     isAllowCountry,
     isGoogleVerified,
+    isValidReferrer,
   } = req.locals;
 
   return [
@@ -15,6 +16,7 @@ export const isBot = (req) => {
     !isValidSearchParams,
     !isAllowCountry,
     !isGoogleVerified,
+    !isValidReferrer,
   ].some(Boolean);
 };
 
