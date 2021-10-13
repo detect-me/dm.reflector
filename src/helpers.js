@@ -19,10 +19,3 @@ export const isBot = (req) => {
     !isValidReferrer,
   ].some(Boolean);
 };
-
-export const abortRequest = (res) => res
-  .set({
-    'Content-Type': 'text/plain',
-  })
-  .status(401)
-  .send('Unauthorized');

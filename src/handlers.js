@@ -39,3 +39,14 @@ export const handleIsNotBot = (req, res) => {
     ),
   });
 };
+
+export const handleIsBot = (res) => res
+  .set({
+    'Content-Type': 'text/plain',
+  })
+  .status(401)
+  .send('Unauthorized');
+
+export const handleNotAuth = (res) => res
+  .status(403)
+  .json({ message: '403 Forbidden' });
