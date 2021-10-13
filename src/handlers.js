@@ -1,7 +1,9 @@
 import { encrypt } from 'dm.crypter';
+import * as Sentry from '@sentry/node';
 
 import renderApp from './view';
 import { ENCRYPT_HASH_KEY, ENCRYPT_IV_KEY } from './config';
+import { IS_PROD } from './env';
 
 export const handleNotFound = (_, res) => res
   .set({ 'Content-Type': 'text/plain' })
@@ -10,6 +12,14 @@ export const handleNotFound = (_, res) => res
 
 // eslint-disable-next-line no-unused-vars
 export const handleCriticalError = (err, req, res, next) => {
+  if (IS_PROD) {
+    Sentry.withScope((scope) => {
+      scope.setTag('app-data', JSON.stringify(req.locals));
+
+      Sentry.captureException(err);
+    });
+  }
+
   console.log(err.message);
 
   return res
