@@ -35,7 +35,7 @@ const tracker = (req, res, next) => {
     referrer: req.get('Referrer'),
 
     // mixpanel
-    $device: userConfig.os.name,
+    $os: userConfig.os.name,
   };
 
   if (IS_DEV) {
