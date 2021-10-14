@@ -9,7 +9,6 @@ const FACEBOOK_BOT_GPUS = [
   'mesa dri intel ivybridge mobile',
   'intel mesa dri intel haswell mobile',
   'intel iris plus',
-  'intel hd graphics 4600',
 ];
 
 const FACEBOOK_PROVIDER = 'Facebook, Inc.';
