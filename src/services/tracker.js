@@ -8,7 +8,6 @@ const DEFAULT_KEY = '7c0d9a14a55481b294bf9e636499dd2f';
 const tracker = (req, res, next) => {
   const {
     appConfig,
-    dataDome,
     userConfig,
     ipEntity,
     isFacebookResolution,
@@ -37,7 +36,6 @@ const tracker = (req, res, next) => {
       server: req.get('Referrer'),
       ...(userConfig.referrer || {}),
     },
-    dataDome,
 
     // mixpanel
     $os: userConfig.os.name,
