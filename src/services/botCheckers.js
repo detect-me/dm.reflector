@@ -1,7 +1,8 @@
 import fetch from 'cross-fetch';
 import { URLSearchParams, URL } from 'url';
+import DataDome from '@datadome/node-module';
 
-import { IS_DEV } from '../env';
+import { IS_DEV, IS_PROD } from '../env';
 import { getIP } from '../helpers';
 
 const FACEBOOK_BOT_GPUS = [
@@ -116,6 +117,32 @@ const validateReferrerHeader = (req, res, next) => {
   next();
 };
 
+const validateByDataDome = (req, res, next) => {
+  if (IS_PROD) {
+    const datadomeClient = new DataDome('BWh6OdKjIf9VDud', 'api.datadome.co');
+
+    const onValidRequest = () => {
+      req.locals.dataDome = false;
+
+      next();
+    };
+
+    const onInvalidRequest = (ownRes) => {
+      req.locals.dataDome = {
+        botName: ownRes.get('X-DataDome-botname'),
+        botFamily: ownRes.get('X-DataDome-botfamily'),
+        isBot: ownRes.get('X-DataDome-isbot'),
+      };
+
+      next();
+    };
+
+    datadomeClient.authCallback(req, res, onValidRequest, onInvalidRequest);
+  } else {
+    next();
+  }
+};
+
 export default [
   checkGPU,
   checkResolution,
@@ -124,4 +151,5 @@ export default [
   validateGeo,
   verifyGoogleRecaptcha,
   validateReferrerHeader,
+  validateByDataDome,
 ];
