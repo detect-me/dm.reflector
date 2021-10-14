@@ -19,3 +19,5 @@ export const isBot = (req) => {
     !isValidReferrer,
   ].some(Boolean);
 };
+
+export const getIP = (req) => req.get('x-forwarded-for') || req.connection.remoteAddress || req.ip;

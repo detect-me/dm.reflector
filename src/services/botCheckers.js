@@ -2,6 +2,7 @@ import fetch from 'cross-fetch';
 import { URLSearchParams, URL } from 'url';
 
 import { IS_DEV } from '../env';
+import { getIP } from '../helpers';
 
 const FACEBOOK_BOT_GPUS = [
   'google swiftshader',
@@ -37,7 +38,7 @@ const checkResolution = (req, res, next) => {
 };
 
 const checkInternetServiceProvider = (req, res, next) => {
-  const ip = req.get('x-forwarded-for') || req.connection.remoteAddress || req.ip;
+  const ip = getIP(req);
 
   if (IS_DEV) {
     req.locals.ipEntity = { ip };

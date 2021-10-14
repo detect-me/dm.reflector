@@ -32,11 +32,16 @@ const tracker = (req, res, next) => {
       isGoogleVerified,
       isValidReferrer,
     },
-    referrer: req.get('Referrer'),
+    referrer: {
+      server: req.get('Referrer'),
+      ...(userConfig.referrer || {}),
+    },
 
     // mixpanel
     $os: userConfig.os.name,
   };
+
+  delete userConfig.referrer;
 
   if (IS_DEV) {
     console.log(payload);

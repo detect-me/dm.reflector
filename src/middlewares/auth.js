@@ -2,6 +2,7 @@ import { decrypt } from 'dm.crypter';
 
 import { ENCRYPT_HASH_KEY, ENCRYPT_IV_KEY } from '../config';
 import { handleNotAuth } from '../handlers';
+import { getIP } from '../helpers';
 
 const auth = (req, res, next) => {
   try {
@@ -27,6 +28,7 @@ const auth = (req, res, next) => {
     console.log('app-config ', req.get('X-API-KEY'));
     console.log('user-config ', req.get('X-USER-KEY'));
     console.log('target ', req.get('Referrer'));
+    console.log('ip', getIP(req));
 
     handleNotAuth(res);
   }
