@@ -7,6 +7,7 @@ export const isBot = (req) => {
     isAllowCountry,
     isGoogleVerified,
     isValidReferrer,
+    isAllowOS,
   } = req.locals;
 
   return [
@@ -17,6 +18,7 @@ export const isBot = (req) => {
     !isAllowCountry,
     !isGoogleVerified,
     !isValidReferrer,
+    !isAllowOS,
   ].some(Boolean);
 };
 

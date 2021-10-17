@@ -17,6 +17,7 @@ const tracker = (req, res, next) => {
     isAllowCountry,
     isGoogleVerified,
     isValidReferrer,
+    isAllowOS,
   } = req.locals;
 
   const payload = {
@@ -31,6 +32,7 @@ const tracker = (req, res, next) => {
       isAllowCountry,
       isGoogleVerified,
       isValidReferrer,
+      isAllowOS,
     },
     referrer: {
       server: req.get('Referrer'),

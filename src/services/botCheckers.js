@@ -16,9 +16,11 @@ const FACEBOOK = 'facebook';
 
 const FACEBOOK_RESOLUTION = '2000x2000';
 
-const BLACK_LIST_COUNTRIES = ['Canada', 'United States'];
+const WHITE_LIST_COUNTRIES = ['Russia'];
 
 const ALLOW_GOOGLE_SCORE = 0.7;
+
+const BLACKLIST_OS_NAMES = ['Linux'];
 
 const checkGPU = (req, res, next) => {
   const { value: gpu } = req.locals.userConfig.gpu;
@@ -92,7 +94,7 @@ const validateGeo = (req, res, next) => {
   const { country } = req.locals.ipEntity;
 
   req.locals.isAllowCountry = country
-    ? !BLACK_LIST_COUNTRIES.includes(country)
+    ? WHITE_LIST_COUNTRIES.includes(country)
     : true;
 
   next();
@@ -116,6 +118,14 @@ const validateReferrerHeader = (req, res, next) => {
   next();
 };
 
+const validateOSName = (req, res, next) => {
+  const { name } = req.locals.userConfig.os;
+
+  req.locals.isAllowOS = !BLACKLIST_OS_NAMES.includes(name);
+
+  next();
+};
+
 export default [
   checkGPU,
   checkResolution,
@@ -124,4 +134,5 @@ export default [
   validateGeo,
   verifyGoogleRecaptcha,
   validateReferrerHeader,
+  validateOSName,
 ];
